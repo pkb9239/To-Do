@@ -37,6 +37,20 @@ export default class App extends Component {
   handleClick = (id) => {
     let newToDoData = this.state.todoData.filter((data) => data.id !== id);
     this.setState({ todoData: newToDoData });
+  };
+
+  handleChange = (e) => {
+    this.setState({ value: e.target.value });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let newToDo = {
+      id: Date.now(),
+      title: this.state.value,
+      completed: false
+    };
+    this.setState({ todoData: [...this.state.todoData, newToDo] });
   }
 
   render() {
@@ -55,9 +69,21 @@ export default class App extends Component {
               </p>
             </div>
           )}
-          <form style={{ display: 'flex' }}>
-            <input type="text" name="value" style={{ flex: '10', padding: '5px' }}
-              placeholder="해야 할 일을 입력하세요." value=""
+          <form style={{ display: 'flex' }} onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="value"
+              style={{ flex: '10', padding: '5px' }}
+              placeholder="해야 할 일을 입력하세요."
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+            <input
+              type="submit"
+              value="입력"
+              className="btn"
+              style={{ flex: '1' }}
+              onClick={this.onClick}
             />
           </form>
         </div>
