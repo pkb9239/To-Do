@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Lists = React.memo(({ id, title, completed, todoData, setToData, provided, snapshot }) => {
+const Lists = React.memo(({ id, title, completed, todoData, setToData, provided, snapshot, handleClick }) => {
   const hadleCheckBox = (id) => {
     let newToDoData = todoData.map((data) => {
       if (data.id === id) {
@@ -10,10 +10,6 @@ const Lists = React.memo(({ id, title, completed, todoData, setToData, provided,
     });
     setToData(newToDoData);
   }
-  const handleClick = (id) => {
-    let newToDoData = todoData.filter((data) => data.id !== id);
-    setToData(newToDoData);
-  };
   return (
     <div
       key={id} {...provided.draggableProps}
