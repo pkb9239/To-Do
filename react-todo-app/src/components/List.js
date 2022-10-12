@@ -1,45 +1,38 @@
 import React from 'react'
 
-export default function List({todoData, setToData}) {
-    const btnStyle = {
-        color: "#fff",
-        border: "none",
-        padding: "5px 9px",
-        borderRadius: "50%",
-        cursor: "pointer",
-        float: "right"
+export default function List({ todoData, setToData }) {
+  const hadleCheckBox = (id) => {
+    let newToDoData = todoData.map((data) => {
+      if (data.id === id) {
+        data.completed = !data.completed;
       }
-      const hadleCheckBox = (id) => {
-        let newToDoData = todoData.map((data) => {
-          if (data.id === id) {
-            data.completed = !data.completed;
-          }
-          return data;
-        });
-        setToData(newToDoData);    
-      }
-      const handleClick = (id) => {
-        let newToDoData = todoData.filter((data) => data.id !== id);
-        setToData(newToDoData);
-      };
-      const getStyle = (completed) => {
-        return {
-          padding: "10px",
-          borderBottom: "1px #ccc dotted",
-          textDecoration: completed ? "line-through" : "none"
-        }
-      }
-    return (
-        <div>
-            {todoData.map((data) =>
-                <div style={getStyle(data.completed)} key={data.id}>
-                    <p>
-                        <input type="checkbox" defaultChecked={false} onChange={() => hadleCheckBox(data.id)} />
-                        {" "}{data.title}
-                        <button style={btnStyle} onClick={() => handleClick(data.id)}>x</button>
-                    </p>
-                </div>
-            )}
+      return data;
+    });
+    setToData(newToDoData);
+  }
+  const handleClick = (id) => {
+    let newToDoData = todoData.filter((data) => data.id !== id);
+    setToData(newToDoData);
+  };
+  return (
+    <div>
+      {todoData.map((data) =>
+        <div key={data.id}>
+          <div className='flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 bg-gray-100 border rounded'>
+            <div className='items-center'>
+              <input
+                type="checkbox"
+                defaultChecked={false}
+                onChange={() => hadleCheckBox(data.id)}
+              />{" "}
+              <span className={data.completed ? 'line-through' : undefined}>{data.title}</span>
+            </div>
+            <div className='items-center'>
+              <button className="px-4 py-2 float-right" onClick={() => handleClick(data.id)}>x</button>
+            </div>
+          </div>
         </div>
-    )
+      )}
+    </div>
+  )
 }
