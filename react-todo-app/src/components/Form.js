@@ -3,6 +3,7 @@ import React from 'react'
 export default function Form({value, setValue, handleSubmit}) {
 
     const handleChange = (e) => {
+        console.log("Form");
         setValue(e.target.value);
       }
     return (
